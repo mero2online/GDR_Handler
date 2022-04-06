@@ -1,0 +1,1 @@
+pyinstaller --add-data 'src;src' -i ".\src\gdr.ico" --onefile --windowed GDR_Handler.py
