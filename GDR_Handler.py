@@ -43,19 +43,23 @@ def saveFile():
     filename = filedialog.askdirectory()
 
     if (filename):
-        src_files = os.listdir(resource_path('input\\'))
+        src_files = os.listdir(resource_path('output\\'))
         dest_dir = f'{filename}/Output'
         os.mkdir(dest_dir)
         for file_name in src_files:
-            if os.path.isfile(resource_path(f'input\\{file_name}')):
-                shutil.copy(resource_path(f'input\\{file_name}'), dest_dir)
+            if os.path.isfile(resource_path(f'output\\{file_name}')):
+                shutil.copy(resource_path(f'output\\{file_name}'), dest_dir)
 
 
 def clearFiles():
-    if (os.path.exists(resource_path('input'))):
-        shutil.rmtree(resource_path('input\\'))
-    os.mkdir(resource_path('input'))
+    paths = ['input', 'output']
+    for path in paths:
+        if (os.path.exists(resource_path(path))):
+            shutil.rmtree(resource_path(f'{path}\\'))
+        os.mkdir(resource_path(path))
     writeLocalFile(resource_path('output\\output.txt'), '')
+    shutil.copy(resource_path('GEOLOGICAL_DESCRIPTION_REPORT.docx'),
+                resource_path('input'))
 
 
 clearFiles()

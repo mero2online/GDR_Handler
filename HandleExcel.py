@@ -4,6 +4,7 @@ import os
 import numpy as np
 from pandas import DataFrame
 
+from HandleWord import HandleWord
 from HelperFunc import resource_path, writeLocalFile
 
 
@@ -101,3 +102,5 @@ def handleInput():
             f'FROM {int(min_in_column[0])} FT TO {int(max_in_column[1])} FT {", ".join(rockPercent)}:')
 
     writeLocalFile(resource_path('output\\output.txt'), "\n".join(allText))
+
+    HandleWord(allText)
