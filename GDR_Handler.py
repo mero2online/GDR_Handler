@@ -65,16 +65,25 @@ def browseFile():
 def saveFile():
     # save-as dialog
     filename = filedialog.askdirectory()
+    asyncio.run(saveAllFiles(filename))
 
+
+async def saveAllFiles(filename):
     if (filename):
         src_files = os.listdir(resource_path('output\\'))
         date = getFinalWellDate()
         time = getTimeNowText()
         dest_dir = f'{filename}/GDR-Output-{date}-{time}'
-        os.mkdir(dest_dir)
-        for file_name in src_files:
-            if os.path.isfile(resource_path(f'output\\{file_name}')):
-                shutil.copy(resource_path(f'output\\{file_name}'), dest_dir)
+        await copyFiles(src_files, dest_dir)
+        messagebox.showinfo(
+            'Success', f'Files saved successfully to\n{dest_dir}')
+
+
+async def copyFiles(src_files, dest_dir):
+    os.mkdir(dest_dir)
+    for file_name in src_files:
+        if os.path.isfile(resource_path(f'output\\{file_name}')):
+            shutil.copy(resource_path(f'output\\{file_name}'), dest_dir)
 
 
 def clearFiles():
