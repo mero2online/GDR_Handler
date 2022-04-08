@@ -8,7 +8,7 @@ from HandleWord import HandleWord
 from HelperFunc import resource_path, writeLocalFile
 
 
-def HandleExcel(excelFilename, input_file_extension):
+async def HandleExcel(excelFilename, input_file_extension):
     if (input_file_extension == '.xls'):
         workbook = xlrd.open_workbook(excelFilename)
         sh = workbook.sheet_by_index(workbook.nsheets-1)
