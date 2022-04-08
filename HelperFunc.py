@@ -1,6 +1,6 @@
 import os
 import sys
-
+import datetime
 
 def resource_path(relative_path):
     try:
@@ -23,3 +23,13 @@ def writeLocalFile(filename, txt):
     f = open(filename, 'w')
     f.write(txt)
     f.close()
+
+def getFinalWellDate():
+    day = datetime.datetime.now().strftime("%d")
+    month = datetime.datetime.now().strftime("%b").upper()
+    year = datetime.datetime.now().strftime("%Y")
+    return f'{day}_{month}_{year}'
+
+def getTimeNowText():
+    time = datetime.datetime.now()
+    return f'{time.hour}_{time.minute}_{time.second}'

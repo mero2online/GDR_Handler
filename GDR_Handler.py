@@ -4,7 +4,13 @@ import os
 import shutil
 
 from HandleExcel import HandleExcel
-from HelperFunc import resource_path, writeLocalFile
+from HelperFunc import getFinalWellDate, getTimeNowText, resource_path, writeLocalFile
+
+try:
+    import pyi_splash # type: ignore
+    pyi_splash.close()
+except:
+    pass
 
 filetypes = (
     ('EXCEL files', '*.xls'),
@@ -44,7 +50,9 @@ def saveFile():
 
     if (filename):
         src_files = os.listdir(resource_path('output\\'))
-        dest_dir = f'{filename}/Output'
+        date = getFinalWellDate()
+        time = getTimeNowText()
+        dest_dir = f'{filename}/GDR-Output-{date}-{time}'
         os.mkdir(dest_dir)
         for file_name in src_files:
             if os.path.isfile(resource_path(f'output\\{file_name}')):
@@ -57,7 +65,7 @@ def clearFiles():
         if (os.path.exists(resource_path(path))):
             shutil.rmtree(resource_path(f'{path}\\'))
         os.mkdir(resource_path(path))
-    writeLocalFile(resource_path('output\\output.txt'), '')
+    writeLocalFile(resource_path('output\\GEOLOGICAL_DESCRIPTION_REPORT.txt'), '')
     shutil.copy(resource_path('GEOLOGICAL_DESCRIPTION_REPORT.docx'),
                 resource_path('input'))
 
