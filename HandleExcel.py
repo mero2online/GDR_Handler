@@ -94,13 +94,21 @@ def handleInput():
         maxRock = ['TR' if i == 0 else int(i) for i in max_in_column[3:13]]
         minRock = ['TR' if i == 0 else int(i) for i in min_in_column[3:13]]
 
+        rocksPerInterval = []
         rockPercent = []
         for x in maxRockIndex:
             rockPercent.append(f'({minRock[x]}-{maxRock[x]}%) {rock[x]}')
+            rocksPerInterval.append(f'{rock[x]}:')
 
         allText.append(
-            f'FROM {int(min_in_column[0])} FT TO {int(max_in_column[1])} FT {", ".join(rockPercent)}:')
+            [f'FROM {int(min_in_column[0])} FT TO {int(max_in_column[1])} FT {", ".join(rockPercent)}:', rocksPerInterval])
 
-    writeLocalFile(resource_path('output\\output.txt'), "\n".join(allText))
+    finalText = []
+    for idx, x in enumerate(allText):
+        finalText.append(x[0])
+        for i in x[1]:
+            finalText.append(i)
+
+    writeLocalFile(resource_path('output\\GEOLOGICAL_DESCRIPTION_REPORT.txt'), "\n".join(finalText))
 
     HandleWord(allText)
