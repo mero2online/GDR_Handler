@@ -22,7 +22,8 @@ async def HandleExcel(excelFilename, input_file_extension):
 
         for row in finalValues:
             ws1.append(row)
-            wb.save(resource_path('input\\input.xlsx'))
+
+        wb.save(resource_path('input\\input.xlsx'))
 
         os.remove(resource_path('input\\input.xls'))
     else:
@@ -97,7 +98,10 @@ def handleInput():
         rocksPerInterval = []
         rockPercent = []
         for x in maxRockIndex:
-            rockPercent.append(f'({minRock[x]}-{maxRock[x]}%) {rock[x]}')
+            txtMinMax = f'({minRock[x]}-{maxRock[x]}%) {rock[x]}'
+            txtMinEqMax = f'({maxRock[x]}%) {rock[x]}'
+            txt = txtMinEqMax if minRock[x] == maxRock[x] else txtMinMax
+            rockPercent.append(txt)
             rocksPerInterval.append(f'{rock[x]}:')
 
         allText.append(
@@ -109,6 +113,7 @@ def handleInput():
         for i in x[1]:
             finalText.append(i)
 
-    writeLocalFile(resource_path('output\\GEOLOGICAL_DESCRIPTION_REPORT.txt'), "\n".join(finalText))
+    writeLocalFile(resource_path(
+        'output\\GEOLOGICAL_DESCRIPTION_REPORT.txt'), "\n".join(finalText))
 
     HandleWord(allText)
