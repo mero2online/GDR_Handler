@@ -25,7 +25,6 @@ async def HandleExcel(excelFilename, input_file_extension):
 
         wb.save(resource_path('input\\input.xlsx'))
 
-        os.remove(resource_path('input\\input.xls'))
     else:
         workbook = openpyxl.load_workbook(excelFilename, data_only=True)
 
